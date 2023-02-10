@@ -120,10 +120,10 @@ cmp     dword[event],KeyPress			; Si on appuie sur une touche
 je      closeDisplay						; on saute au label 'closeDisplay' qui ferme la fenêtre
 jmp     boucle
 
-; ;#########################################
-; ;#		DEBUT DE LA ZONE DE DESSIN		 #
-; ;#########################################
-; dessin:
+;#########################################
+;#		DEBUT DE LA ZONE DE DESSIN		 #
+;#########################################
+dessin:
 
 ; couleurs sous forme RRGGBB où RR esr le niveau de rouge, GG le niveua de vert et BB le niveau de bleu
 ; 0000000 (noir) à FFFFFF (blanc)

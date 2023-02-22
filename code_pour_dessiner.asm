@@ -165,7 +165,7 @@ mov     rdx, qword[gc]
 mov     ecx, r9d
 mov     r8d, dword[fixCoord]
 mov     r9d, r10d
-push    dword[fixCoord]
+push    qword[fixCoord]
 call    XDrawLine
 
 

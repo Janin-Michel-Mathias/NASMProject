@@ -67,7 +67,7 @@ main:
 
 ;define coords
 
-mov byte[i], 0
+mov i, 0
 new_point:
 
 call randomCoords
@@ -76,9 +76,9 @@ mov [coordsX + DWORD * i], r8d
 call randomCoords
 mov [coordsY + DWORD * i], r8d
 
-inc i
+inc byte[i]
 
-cmp i, 3
+cmp byte[i], 3
 jb new_point
 
 xor     rdi,rdi
@@ -159,8 +159,9 @@ movsx rsi, dword[coordsX + DWORD * i]
 mov rax, 0
 call printf
 
-inc i
-cmp i, 3
+inc byte[i]
+cmp byte[i], 3
+jb, print_loop
 
 
 ; ############################

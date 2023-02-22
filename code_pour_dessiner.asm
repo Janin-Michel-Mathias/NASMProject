@@ -145,26 +145,22 @@ jmp     boucle
 ;#########################################
 dessin:
 
-mov     rdi, qword[display_name]
-mov     rsi, qword[gc]
-mov     edx, 0x000000
-call    XSetForeground
-
 mov i, 0
 
-draw_point:
 
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-movsx   ecx, dword[coordsX + WORD * i]
-movsx   r8d, dword[coordsY + WORD * i]
-call    XDrawPoint
+print_loop:
+mov rdi, print
+movsx rsi, dword[coordsX + WORD * i]
+mov rax, 0
+call printf
+
+mov rdi, print
+movsx rsi, dword[coordsX + WORD * i]
+mov rax, 0
+call printf
 
 inc i
-
 cmp i, 3
-jb draw_point
 
 
 ; ############################

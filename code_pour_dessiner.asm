@@ -151,22 +151,14 @@ mov     rsi, qword[gc]
 mov     edx, 0x000000
 call    XSetForeground
 
-mov byte[i], 0
-
-draw_point:
-
-movzx r15d, byte[i]
-
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, dword[coordsX + DWORD * r15d]
-mov     r8d, dword[coordsY + DWORD * r15d]
-call    XDrawPoint
-
-inc byte[i]
-cmp byte[i], 3
-jb draw_point
+mov     ecx, dword[coordsX]
+mov     r8d, dword[coordsY]
+mov     r9d, dword[coordsX + DWORD]
+push    qword[coordsY + DWORD]
+call    XDrawLine
 
 
 ; ############################

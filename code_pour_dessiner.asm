@@ -71,10 +71,10 @@ mov i, 0
 new_point:
 
 call randomCoords
-mov [coordsX + DWORD * i], r8d
+mov dword[coordsX + DWORD * i], r8d
 
 call randomCoords
-mov [coordsY + DWORD * i], r8d
+mov dword[coordsY + DWORD * i], r8d
 
 inc byte[i]
 

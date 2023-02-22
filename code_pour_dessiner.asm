@@ -202,3 +202,5 @@ cdq
 idiv ebx
 
 mov r8d, edx
+
+ret

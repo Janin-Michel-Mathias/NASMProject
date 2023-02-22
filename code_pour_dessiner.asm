@@ -76,10 +76,10 @@ mov [coordsX + WORD * i], r8d
 call randomCoords
 mov [coordsY + WORD * i], r8d
 
-inc i
+; inc i
 
-cmp i, 3
-jb new_point
+; cmp i, 3
+; jb new_point
 
 xor     rdi,rdi
 call    XOpenDisplay	; Création de display

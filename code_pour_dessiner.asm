@@ -258,35 +258,32 @@ ret
 global triangleMinMaxX
 triangleMinMaxX:
 
-;r12 coords X comme pour les autres fonctions
-
 mov eax, dword[r12 + DWORD]
-
-cmp dword[r12], eax
-jb firstMore
+jb x1supx2
 
 mov r9d, dword[r12]
 mov r10d, dword[r12 + DWORD]
-jmp secondStep
+jmp step2
 
-firstMore:
+x1supx2:
 
 mov r9d, dword[r12 + DWORD]
 mov r10d, dword[r12]
 
-secondStep:
+step2:
 
 cmp r9d, dword[r12 + DWORD * 2]
-jb thirdMore
+ja x3supmin
 
-mov r10d, dword[r12 + DWORD * 2]
+mov r9d, dword[r12 + DWORD * 2]
 jmp end
-thirdMore:
 
-cmp r9d, dword[r12 + DWORD * 2]
-jb end
+x3supmin:
+
+cmp r10d, dword[r12 + DWORD * 2]
 
 mov r10d, dword[r12 + DWORD * 2]
 
 end:
+
 ret

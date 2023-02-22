@@ -155,13 +155,13 @@ mov byte[i], 0
 
 draw_point:
 
-movzx edx, byte[i]
+movzx r15d, byte[i]
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, dword[coordsX + DWORD * edx]
-mov     r8d, dword[coordsY + DWORD * edx]
+mov     ecx, dword[coordsX + DWORD * r15d]
+mov     r8d, dword[coordsY + DWORD * r15d]
 call    XDrawPoint
 
 inc byte[i]

@@ -259,7 +259,7 @@ global triangleMinMaxX
 triangleMinMaxX:
 
 mov eax, dword[r12 + DWORD]
-jb x1supx2
+ja x1supx2
 
 mov r9d, dword[r12]
 mov r10d, dword[r12 + DWORD]

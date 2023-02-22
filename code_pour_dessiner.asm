@@ -200,6 +200,10 @@ ret
 global drawTriangle
 drawTriangle:
 
+push    rbp
+mov     rbp, rsp
+push    rbx
+
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
@@ -226,5 +230,10 @@ mov     r8d, dword[r13]
 mov     r9d, dword[r12 + DWORD * 2]
 push    qword[r13 + DWORD * 2]
 call    XDrawLine
+
+pop rbx
+
+mov rsp, rbp
+pop rbp
 
 ret

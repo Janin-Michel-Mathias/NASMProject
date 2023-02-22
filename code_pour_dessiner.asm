@@ -279,11 +279,11 @@ secondStep:
 cmp r9d, dword[r12 + DWORD * 2]
 jb thirdMore
 
-mov r9d, dword[r12 + DWORD * 2]
+mov r10d, dword[r12 + DWORD * 2]
 jmp end
 thirdMore:
 
-cmp r10d, dword[r12 + DWORD * 2]
+cmp r9d, dword[r12 + DWORD * 2]
 jb end
 
 mov r10d, dword[r12 + DWORD * 2]

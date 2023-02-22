@@ -164,7 +164,7 @@ call printf
 
 inc byte[i]
 cmp byte[i], 3
-jb, print_loop
+jb print_loop
 
 
 ; ############################

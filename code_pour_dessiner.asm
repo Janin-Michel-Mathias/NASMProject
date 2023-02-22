@@ -216,14 +216,14 @@ mov     r9d, dword[maxX]
 push    qword[maxY]
 call    XDrawLine
 
-mov rax, byte[maxX]
-sub rax, byte[minX]
+mov rax, dword[maxX]
+sub rax, dword[minX]
 mov i, rax
 
 drawPointsLoop1:
 
-mov rax, byte[maxY]
-sub rax, byte[minY]
+mov rax, dword[maxY]
+sub rax, dword[minY]
 mov j, rax
 
 drawPointsLoop2:

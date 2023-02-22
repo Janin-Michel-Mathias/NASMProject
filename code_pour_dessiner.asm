@@ -151,22 +151,9 @@ mov     rsi, qword[gc]
 mov     edx, 0x000000
 call    XSetForeground
 
-mov byte[i], 0
-
-draw_point:
-
-movzx r15d, byte[i]
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[coordsX + DWORD * r15d]
-mov     r8d, dword[coordsY + DWORD * r15d]
-call    XDrawPoint
-
-inc byte[i]
-cmp byte[i], 3
-jb draw_point
+mov r12, coordsX
+mov r13, coordsY
+call drawTriangle
 
 
 ; ############################
@@ -207,5 +194,46 @@ cdq
 idiv ebx
 
 mov r8d, edx
+
+ret
+
+global drawTriangle
+drawTriangle:
+
+push    rbp
+mov     rbp, rsp
+push    rbx
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[r12]
+mov     r8d, dword[r13]
+mov     r9d, dword[r12 + DWORD]
+push    qword[r13 + DWORD]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[r12 + DWORD]
+mov     r8d, dword[r13 + DWORD]
+mov     r9d, dword[r12 + DWORD * 2]
+push    qword[r13 + DWORD * 2]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[r12]
+mov     r8d, dword[r13]
+mov     r9d, dword[r12 + DWORD * 2]
+push    qword[r13 + DWORD * 2]
+call    XDrawLine
+
+pop rbx
+
+mov rsp, rbp
+pop rbp
 
 ret

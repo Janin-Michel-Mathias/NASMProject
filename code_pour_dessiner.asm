@@ -233,7 +233,7 @@ drawPointsLoop2:
 ; mov r11, coordsY
 ; movsx r12, dword[i]
 ; movsx r13, dword[j]
-; call pointDansTriangle HERE
+; call pointDansTriangle
 ; mov rbx, r15
 
 mov r12, coordsX
@@ -513,35 +513,36 @@ ret
 global pointDansTriangle
 pointDansTriangle:
 
+mov rax, 1
 mov r15, 0
 
-movsx rdi, dword[r10]
-movsx rsi, dword[r10 + DWORD]
-movsx rdx, dword[r11]
-movsx rcx, dword[r11 + DWORD]
-movsx r8, dword[r12]
-movsx r9, dword[r13]
-call cotePoint
+; movsx rdi, dword[r10]
+; movsx rsi, dword[r10 + DWORD]
+; movsx rdx, dword[r11]
+; movsx rcx, dword[r11 + DWORD]
+; movsx r8, dword[r12]
+; movsx r9, dword[r13]
+; call cotePoint
 
 add r15, rax
 
-movsx rdi, dword[r10 + DWORD]
-movsx rsi, dword[r10 + DWORD * 2]
-movsx rdx, dword[r11 + DWORD]
-movsx rcx, dword[r11 + DWORD * 2]
-movsx r8, dword[r12]
-movsx r9, dword[r13]
-call cotePoint
+; movsx rdi, dword[r10 + DWORD]
+; movsx rsi, dword[r10 + DWORD * 2]
+; movsx rdx, dword[r11 + DWORD]
+; movsx rcx, dword[r11 + DWORD * 2]
+; movsx r8, dword[r12]
+; movsx r9, dword[r13]
+; call cotePoint
 
 add r15, rax
 
-movsx rdi, dword[r10 + DWORD * 2]
-movsx rsi, dword[r10 + DWORD]
-movsx rdx, dword[r11 + DWORD * 2]
-movsx rcx, dword[r11 + DWORD]
-movsx r8, dword[r12]
-movsx r9, dword[r13]
-call cotePoint
+; movsx rdi, dword[r10 + DWORD * 2]
+; movsx rsi, dword[r10 + DWORD]
+; movsx rdx, dword[r11 + DWORD * 2]
+; movsx rcx, dword[r11 + DWORD]
+; movsx r8, dword[r12]
+; movsx r9, dword[r13]
+; call cotePoint
 
 add r15, rax
 

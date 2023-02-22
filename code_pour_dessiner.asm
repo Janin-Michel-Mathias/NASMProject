@@ -222,9 +222,9 @@ mov i, eax
 
 drawPointsLoop1:
 
-mov rax, dword[maxY]
-sub rax, dword[minY]
-mov j, rax
+mov eax, dword[maxY]
+sub eax, dword[minY]
+mov j, eax
 
 drawPointsLoop2:
 

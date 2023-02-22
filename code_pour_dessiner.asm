@@ -157,8 +157,8 @@ draw_point:
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-movsx   ecx, dword[coordsX + WORD * i]
-movsx   r8d, dword[coordsY + WORD * i]
+movsx   ecx, word[coordsX + WORD * i]
+movsx   r8d, word[coordsY + WORD * i]
 call    XDrawPoint
 
 inc i

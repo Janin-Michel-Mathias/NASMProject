@@ -46,6 +46,7 @@ gc:		        resq    1
 coordsX:        resd    3
 coordsY:        resd    3    
 i:              resb    1
+j:              resb    1
 minX:           resd    1
 maxX:           resd    1
 minY:           resd    1
@@ -214,6 +215,69 @@ mov     r8d, dword[minY]
 mov     r9d, dword[maxX]
 push    qword[maxY]
 call    XDrawLine
+
+mov rax, byte[maxX]
+sub rax, byte[minX]
+mov i, rax
+
+drawPointsLoop1:
+
+mov rax, byte[maxY]
+sub rax, byte[minY]
+mov j, rax
+
+drawPointsLoop2:
+
+mov r10, coordsX
+mov r11, coordsY
+movzx r12, byte[i]
+movzx r13, byte[j]
+call pointDansTriangle
+mov rbx, r15
+
+mov r12, coordsX
+mov r13, coordsY
+call sensTriangle
+
+cmp r14b, 0
+je sensDirect
+cmp rbx, 3
+jne end_loop
+
+mov rdi, qword[display_name]
+mov rsi, qword[window]
+mov rdx, qword[gc]
+mov ecx, byte[i]
+mov r8d, byte[j]
+call XDrawPoint
+
+jmp end_loop
+
+sensDirect:
+cmp rbx, 0
+jne end_loop
+
+mov rdi, qword[display_name]
+mov rsi, qword[window]
+mov rdx, qword[gc]
+mov ecx, byte[i]
+mov r8d, byte[j]
+call XDrawPoint
+
+end_loop:
+
+inc byte[j]
+mov rax, byte[j]
+cmp rax, byte[maxY]
+jae drawPointsLoop2;
+
+inc byte[i]
+mov rax, byte[i]
+cmp rax, byte[maxY]
+jae drawPointsLoop1;
+
+
+
 
 
 ; ############################
@@ -444,3 +508,43 @@ mov rax, 0
 endCote:
 
 ret
+
+global pointDansTriangle
+pointDansTriangle:
+
+mov r15, 0
+
+movsx rdi, dword[r10]
+movsx rsi, dword[r10 + DWORD]
+movsx rdx, dword[r11]
+movsx rcx, dword[r11 + DWORD]
+movsx r8, dword[r12]
+movsx r9, dword[r13]
+call cotePoint
+
+add r15, rax
+
+movsx rdi, dword[r10 + DWORD]
+movsx rsi, dword[r10 + DWORD * 2]
+movsx rdx, dword[r11 + DWORD]
+movsx rcx, dword[r11 + DWORD * 2]
+movsx r8, dword[r12]
+movsx r9, dword[r13]
+call cotePoint
+
+add r15, rax
+
+movsx rdi, dword[r10 + DWORD * 2]
+movsx rsi, dword[r10 + DWORD]
+movsx rdx, dword[r11 + DWORD * 2]
+movsx rcx, dword[r11 + DWORD]
+movsx r8, dword[r12]
+movsx r9, dword[r13]
+call cotePoint
+
+add r15, rax
+
+ret
+
+
+

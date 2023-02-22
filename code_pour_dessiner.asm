@@ -281,12 +281,15 @@ mov r9d, eax
 secondStepMin:
 
 cmp r9d, dword[r12 + DWORD * 2]
-jb endMin
+ja endMin
 
 mov r9d, dword[r12 + DWORD * 2]
 
 endMin:
 ret
+
+
+
 
 global triangleMaxCoordOnAxis
 triangleMaxCoordOnAxis:
@@ -306,7 +309,7 @@ mov r9d, eax
 secondStepMax:
 
 cmp r9d, dword[r12 + DWORD * 2]
-ja endMax
+jb endMax
 
 mov r9d, dword[r12 + DWORD * 2]
 

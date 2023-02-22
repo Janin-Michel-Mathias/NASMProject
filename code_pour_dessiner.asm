@@ -43,7 +43,9 @@ width:         	resd	1
 height:        	resd	1
 window:		    resq	1
 gc:		        resq    1
-coords:         resw    3
+coordsX:        resw    3
+coordsY:        resw    3    
+i:              resb    1
 
 section .data
 
@@ -62,6 +64,23 @@ section .text
 ;##################################################
 
 main:
+
+;define coords
+
+mov byte[i], 0
+new_point:
+
+call randomCoords
+movsx [coordsX + WORD * i], r8w
+
+call randomCoords
+movsx [coordsY + WORD * i], r8w
+
+inc i
+
+cmp i, 3
+jb new_point
+
 xor     rdi,rdi
 call    XOpenDisplay	; Création de display
 mov     qword[display_name],rax	; rax=nom du display
@@ -126,12 +145,26 @@ jmp     boucle
 ;#########################################
 dessin:
 
-call randomCoords
+mov     rdi, qword[display_name]
+mov     rsi, qword[gc]
+mov     edx, 0x000000
+call    XSetForeground
 
-mov rdi, print
-movsx rsi, r8w
-mov rax, 0
-call printf
+mov i, 0
+
+draw_point:
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[coordsX + WORD * i]
+mov     r8d, dword[coordsY + WORD * i]
+call    XDrawPoint
+
+inc i
+
+cmp i, 3
+jb draw_point
 
 
 ; ############################

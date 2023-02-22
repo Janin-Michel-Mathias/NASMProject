@@ -169,6 +169,15 @@ mov     r9d, dword[coordsX + DWORD * 2]
 push    qword[coordsY + DWORD * 2]
 call    XDrawLine
 
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[coordsX]
+mov     r8d, dword[coordsY]
+mov     r9d, dword[coordsX + DWORD * 2]
+push    qword[coordsY + DWORD * 2]
+call    XDrawLine
+
 
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #

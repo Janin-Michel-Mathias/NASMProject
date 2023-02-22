@@ -229,12 +229,12 @@ mov dword[j], eax
 
 drawPointsLoop2:
 
-; mov r10, coordsX
-; mov r11, coordsY
-; movsx r12, dword[i]
-; movsx r13, dword[j]
-; call pointDansTriangle
-; mov rbx, r15
+mov r10, coordsX
+mov r11, coordsY
+movsx r12, dword[i]
+movsx r13, dword[j]
+call pointDansTriangle
+mov rbx, r15
 
 ; mov r12, coordsX
 ; mov r13, coordsY
@@ -266,16 +266,6 @@ drawPointsLoop2:
 ; call XDrawPoint
 
 ; end_loop:
-
-mov rdi, print
-movsx rsi, dword[i]
-mov rax, 0
-call printf
-
-mov rdi, print
-movsx rsi, dword[j]
-mov rax, 0
-call printf
 
 inc dword[j]
 mov eax, dword[j]

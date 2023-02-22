@@ -160,11 +160,11 @@ call drawTriangle
 
 mov r12, coordsX
 call triangleMinCoordOnAxis
-mov minX, r12
+mov dword[minX], r12
 
 mov r12, coordsX
 call triangleMaxCoordOnAxis
-mov maxX, r12
+mov dword[maxX], r12
 
 
 mov     rdi, qword[display_name]

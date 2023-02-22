@@ -268,12 +268,12 @@ drawPointsLoop2:
 ; end_loop:
 
 mov rdi, print
-movzx rsi, dword[i]
+movsx rsi, dword[i]
 mov rax, 0
 call printf
 
 mov rdi, print
-movzx rsi, dword[j]
+movsx rsi, dword[j]
 mov rax, 0
 call printf
 

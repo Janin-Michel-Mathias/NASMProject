@@ -229,16 +229,16 @@ mov dword[j], eax
 
 drawPointsLoop2:
 
-mov r10, coordsX
-mov r11, coordsY
-movsx r12, dword[i]
-movsx r13, dword[j]
-call pointDansTriangle
-mov rbx, r15
+; mov r10, coordsX
+; mov r11, coordsY
+; movsx r12, dword[i]
+; movsx r13, dword[j]
+; call pointDansTriangle HERE
+; mov rbx, r15
 
-; mov r12, coordsX
-; mov r13, coordsY
-; call sensTriangle
+mov r12, coordsX
+mov r13, coordsY
+call sensTriangle
 
 ; cmp r14b, 0
 ; je sensDirect

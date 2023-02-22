@@ -409,3 +409,38 @@ mov r14b, 0
 
 endSens:
 ret
+
+global cotePoint
+cotePoint:
+; rdi xA
+; rsi xB
+; rdx yA
+; rcx yB
+; r8  xP
+; r9  yp
+
+sub rsi, rdi
+sub r8, rdi
+sub rcx, rdx
+sub r9, rdx
+
+mov rax, rsi
+imul r9
+
+mov rsi, rax
+
+mov rax, r8
+imul rcx
+
+sub rsi, rax
+
+cmp rsi, 0
+jl pointAGauche
+mov rax, 1
+jmp endCote
+pointAGauche:
+mov rax, 0
+
+endCote:
+
+ret

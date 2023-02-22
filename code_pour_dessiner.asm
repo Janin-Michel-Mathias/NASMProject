@@ -167,7 +167,7 @@ randomCoords:
 
 RDRAND      r8w
 
-cmp word[r8w], 0
+cmp r8w, 0
 jl only_positive
 
 mov ax, r8w

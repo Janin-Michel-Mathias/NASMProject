@@ -129,7 +129,7 @@ dessin:
 call randomCoords
 
 mov rdi, print
-mov rsi, byte[r8w]
+mov rsi, word[r8w]
 mov rax, 0
 call printf
 

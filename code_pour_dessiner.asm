@@ -48,6 +48,8 @@ coordsY:        resd    3
 i:              resb    1
 minX:           resd    1
 maxX:           resd    1
+minY:           resd    1
+maxY:           resd    1
 
 section .data
 
@@ -57,8 +59,6 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: db "%d",10,0
-fixCoord: dd 50
 
 section .text
 	
@@ -159,27 +159,80 @@ mov r13, coordsY
 call drawTriangle
 
 mov r12, coordsX
+
 call triangleMinCoordOnAxis
 mov dword[minX], r9d
-
-mov r12, coordsX
 call triangleMaxCoordOnAxis
 mov dword[maxX], r9d
+
+mov r12, coordsY
+call triangleMinCoordOnAxis
+mov dword[minY], r9d
+call triangleMaxCoordOnAxis
+mov dword[maxY], r9d
+
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[gc]
+mov     edx, 0xFF0000
+call    XSetForeground
 
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
 mov     ecx, dword[minX]
-mov     r8d, dword[fixCoord]
+mov     r8d, dword[minY]
 mov     r9d, dword[maxX]
-push    qword[fixCoord]
+push    qword[minY]
+call    XDrawLine
+
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[maxY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[minY]
+mov     r9d, dword[minX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[maxX]
+mov     r8d, dword[minY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
 call    XDrawLine
 
 
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #
 ; ############################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

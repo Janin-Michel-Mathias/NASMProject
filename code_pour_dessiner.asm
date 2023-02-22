@@ -164,7 +164,7 @@ randomCoords:
 RDRAND      r8w
 
 cmp r8w, 0
-jl only_positive
+jl randomCoords
 
 mov ax, r8w
 mov bx, 400

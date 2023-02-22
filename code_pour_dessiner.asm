@@ -60,6 +60,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
+print: dd "%d", 10, 0
 
 section .text
 	
@@ -228,43 +229,53 @@ mov dword[j], eax
 
 drawPointsLoop2:
 
-mov r10, coordsX
-mov r11, coordsY
-movsx r12, dword[i]
-movsx r13, dword[j]
-call pointDansTriangle
-mov rbx, r15
+; mov r10, coordsX
+; mov r11, coordsY
+; movsx r12, dword[i]
+; movsx r13, dword[j]
+; call pointDansTriangle
+; mov rbx, r15
 
-mov r12, coordsX
-mov r13, coordsY
-call sensTriangle
+; mov r12, coordsX
+; mov r13, coordsY
+; call sensTriangle
 
-cmp r14b, 0
-je sensDirect
-cmp rbx, 3
-jne end_loop
+; cmp r14b, 0
+; je sensDirect
+; cmp rbx, 3
+; jne end_loop
 
-mov rdi, qword[display_name]
-mov rsi, qword[window]
-mov rdx, qword[gc]
-mov ecx, dword[i]
-mov r8d, dword[j]
-call XDrawPoint
+; mov rdi, qword[display_name]
+; mov rsi, qword[window]
+; mov rdx, qword[gc]
+; mov ecx, dword[i]
+; mov r8d, dword[j]
+; call XDrawPoint
 
-jmp end_loop
+; jmp end_loop
 
-sensDirect:
-cmp rbx, 0
-jne end_loop
+; sensDirect:
+; cmp rbx, 0
+; jne end_loop
 
-mov rdi, qword[display_name]
-mov rsi, qword[window]
-mov rdx, qword[gc]
-mov ecx, dword[i]
-mov r8d, dword[j]
-call XDrawPoint
+; mov rdi, qword[display_name]
+; mov rsi, qword[window]
+; mov rdx, qword[gc]
+; mov ecx, dword[i]
+; mov r8d, dword[j]
+; call XDrawPoint
 
-end_loop:
+; end_loop:
+
+mov rdi, print
+mov rsi, dword[i]
+mov rax, 0
+call printf
+
+mov rdi, print
+mov rsi, dword[j]
+mov rax, 0
+call printf
 
 inc dword[j]
 mov eax, dword[j]

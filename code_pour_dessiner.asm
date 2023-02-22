@@ -67,14 +67,15 @@ main:
 
 ;define coords
 
-mov i, 0
+mov byte[i], 0
 new_point:
 
+movzx ecx, byte[i]
 call randomCoords
-mov dword[coordsX + DWORD * i], r8d
+mov dword[coordsX + DWORD * ecx], r8d
 
 call randomCoords
-mov dword[coordsY + DWORD * i], r8d
+mov dword[coordsY + DWORD * ecx], r8d
 
 inc byte[i]
 
@@ -145,17 +146,19 @@ jmp     boucle
 ;#########################################
 dessin:
 
-mov i, 0
+mov byte[i], 0
 
 
 print_loop:
+
+mov ecx, byte[i]
 mov rdi, print
-movsx rsi, dword[coordsX + DWORD * i]
+movsx rsi, dword[coordsX + DWORD * ecx]
 mov rax, 0
 call printf
 
 mov rdi, print
-movsx rsi, dword[coordsX + DWORD * i]
+movsx rsi, dword[coordsX + DWORD * ecx]
 mov rax, 0
 call printf
 

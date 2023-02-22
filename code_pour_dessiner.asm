@@ -368,3 +368,44 @@ mov r9d, dword[r12 + DWORD * 2]
 
 endMax:
 ret
+
+
+global sensTriangle
+sensTriangle:
+
+; r12 coords X
+; r13 coords Y
+; r14b =  0:direct  1: indirect
+
+mov r10, r12
+mov r11, r13
+
+mov r9d, dword[r10 + DWORD]
+
+sub dword[r10], r9d ; -11
+sub dword[r10 + DWORD * 2], r9d ; -15
+mov r9d, dword[r11 + DWORD]
+sub dword[r11], r9d ; -49
+sub dword[r11 + DWORD * 2], r9d ; -9
+
+mov eax, dword[r10]
+imul dword[r11 + DWORD * 2]
+
+mov dword[r10], eax
+
+mov eax, dword[r10 + DWORD * 2]
+imul dword[r11]
+
+sub dword[r10], eax
+
+cmp dword[r10], 0
+jl direct
+
+mov r14b, 1
+jmp endSens
+
+direct:
+mov r14b, 0
+
+endSens:
+ret

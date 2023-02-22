@@ -155,6 +155,18 @@ mov r12, coordsX
 mov r13, coordsY
 call drawTriangle
 
+mov r12, coordsX
+call triangleMinMaxX
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, r9d
+mov     r8d, dword[50]
+mov     r9d, r10d
+push    dword[50]
+call    XDrawLine
+
 
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #
@@ -200,6 +212,9 @@ ret
 global drawTriangle
 drawTriangle:
 
+;r12 = coordonnées de début du triangle dans le tableau coordsX
+;r13 = idem pour coordsY
+
 push    rbp
 mov     rbp, rsp
 push    rbx
@@ -236,4 +251,41 @@ pop rbx
 mov rsp, rbp
 pop rbp
 
+ret
+
+
+global triangleMinMaxX
+triangleMinMaxX:
+
+;r12 coords X comme pour les autres fonctions
+
+mov eax, dword[r12 + DWORD]
+
+cmp dword[r12], eax
+jb firstMore
+
+mov r9d, dword[r12]
+mov r10d, dword[r12 + DWORD]
+jmp secondStep
+
+firstMore:
+
+mov r9d, dword[r12 + DWORD]
+mov r10d, dword[r12]
+
+secondStep:
+
+cmp r9d, dword[r12 + DWORD * 2]
+jb thirdMore
+
+mov r9d, dword[r12 + DWORD * 2]
+jmp end
+thirdMore:
+
+cmp r10d, dword[r12 + DWORD * 2]
+jb end
+
+mov r10d, dword[r12 + DWORD * 2]
+
+end:
 ret

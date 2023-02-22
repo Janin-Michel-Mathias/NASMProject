@@ -160,8 +160,8 @@ movzx edx, byte[i]
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov   ecx, dword[coordsX + DWORD * edx]
-mov   r8d, dword[coordsY + DWORD * edx]
+mov     ecx, dword[coordsX + DWORD * edx]
+mov     r8d, dword[coordsY + DWORD * edx]
 call    XDrawPoint
 
 inc byte[i]

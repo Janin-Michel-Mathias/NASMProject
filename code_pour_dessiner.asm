@@ -46,6 +46,8 @@ gc:		        resq    1
 coordsX:        resd    3
 coordsY:        resd    3    
 i:              resb    1
+minX:           resd    1
+maxX:           resd    1
 
 section .data
 
@@ -157,14 +159,20 @@ mov r13, coordsY
 call drawTriangle
 
 mov r12, coordsX
-call triangleMinMaxX
+call triangleMinCoordOnAxis
+mov minX, r12
+
+mov r12, coordsX
+call triangleMaxCoordOnAxis
+mov maxX, r12
+
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, r9d
+mov     ecx, dword[minX]
 mov     r8d, dword[fixCoord]
-mov     r9d, r10d
+mov     r9d, dword[maxX]
 push    qword[fixCoord]
 call    XDrawLine
 
@@ -255,35 +263,52 @@ pop rbp
 ret
 
 
-global triangleMinMaxX
-triangleMinMaxX:
+global triangleMinCoordOnAxis
+triangleMinCoordOnAxis:
 
 mov eax, dword[r12 + DWORD]
-ja x1supx2
+
+cmp dword[r12], eax
+jb firstGreater
 
 mov r9d, dword[r12]
-mov r10d, dword[r12 + DWORD]
-jmp step2
+jmp secondStep
 
-x1supx2:
+firstGreater:
 
-mov r9d, dword[r12 + DWORD]
-mov r10d, dword[r12]
+mov r9d, eax
 
-step2:
+secondStep:
 
 cmp r9d, dword[r12 + DWORD * 2]
-ja x3supmin
+jb end
 
 mov r9d, dword[r12 + DWORD * 2]
-jmp end
-
-x3supmin:
-
-cmp r10d, dword[r12 + DWORD * 2]
-
-mov r10d, dword[r12 + DWORD * 2]
 
 end:
+ret
 
+global triangleMaxCoordOnAxis
+triangleMaxCoordOnAxis:
+
+mov eax, dword[r12 + DWORD]
+
+cmp dword[r12], eax
+ja firstlower
+
+mov r9d, dword[r12]
+jmp secondStep
+
+firstLower:
+
+mov r9d, eax
+
+secondStep:
+
+cmp r9d, dword[r12 + DWORD * 2]
+ja end
+
+mov r9d, dword[r12 + DWORD * 2]
+
+end:
 ret

@@ -233,7 +233,7 @@ drawPointsLoop2:
 ; call XDrawPoint
 
 mov rdi, print
-mov rsi, dword[i]
+movsx rsi, dword[i]
 mov rax, 0
 call printf
 

@@ -45,8 +45,8 @@ window:		    resq	1
 gc:		        resq    1
 coordsX:        resd    3
 coordsY:        resd    3    
-i:              resb    1
-j:              resb    1
+i:              resd    1
+j:              resd    1
 minX:           resd    1
 maxX:           resd    1
 minY:           resd    1
@@ -71,19 +71,19 @@ main:
 
 ;define coords
 
-mov byte[i], 0
+mov dword[i], 0
 new_point:
 
-movzx ecx, byte[i]
+movzx ecx, dword[i]
 call randomCoords
 mov dword[coordsX + DWORD * ecx], r8d
 
 call randomCoords
 mov dword[coordsY + DWORD * ecx], r8d
 
-inc byte[i]
+inc dword[i]
 
-cmp byte[i], 3
+cmp dword[i], 3
 jb new_point
 
 xor     rdi,rdi
@@ -230,8 +230,8 @@ drawPointsLoop2:
 
 mov r10, coordsX
 mov r11, coordsY
-movzx r12, byte[i]
-movzx r13, byte[j]
+movzx r12, dword[i]
+movzx r13, dword[j]
 call pointDansTriangle
 mov rbx, r15
 
@@ -247,8 +247,8 @@ jne end_loop
 mov rdi, qword[display_name]
 mov rsi, qword[window]
 mov rdx, qword[gc]
-mov ecx, byte[i]
-mov r8d, byte[j]
+movzx ecx, dword[i]
+movzx r8d, dword[j]
 call XDrawPoint
 
 jmp end_loop
@@ -260,20 +260,20 @@ jne end_loop
 mov rdi, qword[display_name]
 mov rsi, qword[window]
 mov rdx, qword[gc]
-mov ecx, byte[i]
-mov r8d, byte[j]
+movzx ecx, dword[i]
+movzx r8d, dword[j]
 call XDrawPoint
 
 end_loop:
 
-inc byte[j]
-mov rax, byte[j]
-cmp rax, byte[maxY]
+inc dword[j]
+mov rax, dword[j]
+cmp rax, dword[maxY]
 jae drawPointsLoop2;
 
-inc byte[i]
-mov rax, byte[i]
-cmp rax, byte[maxY]
+inc dword[i]
+mov rax, dword[i]
+cmp rax, dword[maxY]
 jae drawPointsLoop1;
 
 

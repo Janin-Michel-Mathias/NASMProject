@@ -267,13 +267,13 @@ call XDrawPoint
 end_loop:
 
 inc dword[j]
-mov rax, dword[j]
-cmp rax, dword[maxY]
+mov eax, dword[j]
+cmp eax, dword[maxY]
 jae drawPointsLoop2;
 
 inc dword[i]
-mov rax, dword[i]
-cmp rax, dword[maxY]
+mov eax, dword[i]
+cmp eax, dword[maxY]
 jae drawPointsLoop1;
 
 

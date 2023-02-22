@@ -222,7 +222,7 @@ drawPointsLoop2:
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[gc]
-mov     edx, 0xFF0000
+mov     edx, 0x000000
 call    XSetForeground
 
 mov rdi, qword[display_name]
@@ -251,6 +251,28 @@ jae drawPointsLoop1;
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #
 ; ############################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

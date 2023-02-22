@@ -46,6 +46,10 @@ gc:		        resq    1
 coordsX:        resd    3
 coordsY:        resd    3    
 i:              resb    1
+minX:           resd    1
+maxX:           resd    1
+minY:           resd    1
+maxY:           resd    1
 
 section .data
 
@@ -55,7 +59,6 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: db "%d",10,0
 
 section .text
 	
@@ -155,10 +158,81 @@ mov r12, coordsX
 mov r13, coordsY
 call drawTriangle
 
+mov r12, coordsX
+
+call triangleMinCoordOnAxis
+mov dword[minX], r9d
+call triangleMaxCoordOnAxis
+mov dword[maxX], r9d
+
+mov r12, coordsY
+call triangleMinCoordOnAxis
+mov dword[minY], r9d
+call triangleMaxCoordOnAxis
+mov dword[maxY], r9d
+
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[gc]
+mov     edx, 0xFF0000
+call    XSetForeground
+
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[minY]
+mov     r9d, dword[maxX]
+push    qword[minY]
+call    XDrawLine
+
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[maxY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[minY]
+mov     r9d, dword[minX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[maxX]
+mov     r8d, dword[minY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
+call    XDrawLine
+
 
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #
 ; ############################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -200,6 +274,9 @@ ret
 global drawTriangle
 drawTriangle:
 
+;r12 = coordonnées de début du triangle dans le tableau coordsX
+;r13 = idem pour coordsY
+
 push    rbp
 mov     rbp, rsp
 push    rbx
@@ -236,4 +313,58 @@ pop rbx
 mov rsp, rbp
 pop rbp
 
+ret
+
+
+global triangleMinCoordOnAxis
+triangleMinCoordOnAxis:
+
+mov eax, dword[r12 + DWORD]
+
+cmp dword[r12], eax
+jb firstGreater
+
+mov r9d, dword[r12]
+jmp secondStepMin
+
+firstGreater:
+
+mov r9d, eax
+
+secondStepMin:
+
+cmp r9d, dword[r12 + DWORD * 2]
+ja endMin
+
+mov r9d, dword[r12 + DWORD * 2]
+
+endMin:
+ret
+
+
+
+
+global triangleMaxCoordOnAxis
+triangleMaxCoordOnAxis:
+
+mov eax, dword[r12 + DWORD]
+
+cmp dword[r12], eax
+ja firstLower
+
+mov r9d, dword[r12]
+jmp secondStepMax
+
+firstLower:
+
+mov r9d, eax
+
+secondStepMax:
+
+cmp r9d, dword[r12 + DWORD * 2]
+jb endMax
+
+mov r9d, dword[r12 + DWORD * 2]
+
+endMax:
 ret

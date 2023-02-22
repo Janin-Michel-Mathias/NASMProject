@@ -216,9 +216,9 @@ mov     r9d, dword[maxX]
 push    qword[maxY]
 call    XDrawLine
 
-mov rax, dword[maxX]
-sub rax, dword[minX]
-mov i, rax
+mov eax, dword[maxX]
+sub eax, dword[minX]
+mov i, eax
 
 drawPointsLoop1:
 

@@ -247,8 +247,8 @@ jne end_loop
 mov rdi, qword[display_name]
 mov rsi, qword[window]
 mov rdx, qword[gc]
-movzx ecx, dword[i]
-movzx r8d, dword[j]
+mov ecx, dword[i]
+mov r8d, dword[j]
 call XDrawPoint
 
 jmp end_loop
@@ -260,8 +260,8 @@ jne end_loop
 mov rdi, qword[display_name]
 mov rsi, qword[window]
 mov rdx, qword[gc]
-movzx ecx, dword[i]
-movzx r8d, dword[j]
+mov ecx, dword[i]
+mov r8d, dword[j]
 call XDrawPoint
 
 end_loop:

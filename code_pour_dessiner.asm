@@ -230,8 +230,8 @@ drawPointsLoop2:
 
 mov r10, coordsX
 mov r11, coordsY
-mov r12, dword[i]
-mov r13, dword[j]
+movsx r12, dword[i]
+movsx r13, dword[j]
 call pointDansTriangle
 mov rbx, r15
 
@@ -247,8 +247,8 @@ jne end_loop
 mov rdi, qword[display_name]
 mov rsi, qword[window]
 mov rdx, qword[gc]
-mov ecx, dword[i]
-mov r8d, dword[j]
+movsx ecx, dword[i]
+movsx r8d, dword[j]
 call XDrawPoint
 
 jmp end_loop

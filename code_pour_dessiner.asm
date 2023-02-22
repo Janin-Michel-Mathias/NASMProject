@@ -53,7 +53,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: "%d",10,0
+print: db "%d",10,0
 
 section .text
 	
@@ -132,10 +132,6 @@ mov rdi, print
 mov rsi, r8w
 mov rax, 0
 call printf
-
-mo
-
-
 
 
 ; ############################

@@ -56,6 +56,7 @@ x2:	dd	0
 y1:	dd	0
 y2:	dd	0
 print: db "%d",10,0
+fixCoord: dd 50
 
 section .text
 	
@@ -162,9 +163,9 @@ mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
 mov     ecx, r9d
-mov     r8d, dword[50]
+mov     r8d, dword[fixCoord]
 mov     r9d, r10d
-push    dword[50]
+push    dword[fixCoord]
 call    XDrawLine
 
 

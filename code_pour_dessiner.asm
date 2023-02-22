@@ -220,17 +220,22 @@ drawPointsLoop2:
 ; cmp rbx, 0
 ; jne end_loop
 
-mov     rdi, qword[display_name]
-mov     rsi, qword[gc]
-mov     edx, 0x000000
-call    XSetForeground
+; mov     rdi, qword[display_name]
+; mov     rsi, qword[gc]
+; mov     edx, 0x000000
+; call    XSetForeground
 
-mov rdi, qword[display_name]
-mov rsi, qword[window]
-mov rdx, qword[gc]
-mov ecx, dword[i]
-mov r8d, dword[j]
-call XDrawPoint
+; mov rdi, qword[display_name]
+; mov rsi, qword[window]
+; mov rdx, qword[gc]
+; mov ecx, dword[i]
+; mov r8d, dword[j]
+; call XDrawPoint
+
+mov rdi, print
+mov rsi, dword[i]
+mov rax, 0
+call printf
 
 end_loop:
 

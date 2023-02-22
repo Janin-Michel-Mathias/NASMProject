@@ -151,6 +151,8 @@ mov     rsi, qword[gc]
 mov     edx, 0x000000
 call    XSetForeground
 
+mov r12, coordsX
+mov r13, coordsY
 call drawTriangle
 
 
@@ -201,28 +203,28 @@ drawTriangle:
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, dword[coordsX]
-mov     r8d, dword[coordsY]
-mov     r9d, dword[coordsX + DWORD]
-push    qword[coordsY + DWORD]
+mov     ecx, dword[r12]
+mov     r8d, dword[r13]
+mov     r9d, dword[r12 + DWORD]
+push    qword[r13 + DWORD]
 call    XDrawLine
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, dword[coordsX + DWORD]
-mov     r8d, dword[coordsY + DWORD]
-mov     r9d, dword[coordsX + DWORD * 2]
-push    qword[coordsY + DWORD * 2]
+mov     ecx, dword[r12 + DWORD]
+mov     r8d, dword[r13 + DWORD]
+mov     r9d, dword[r12 + DWORD * 2]
+push    qword[r13 + DWORD * 2]
 call    XDrawLine
 
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-mov     ecx, dword[coordsX]
-mov     r8d, dword[coordsY]
-mov     r9d, dword[coordsX + DWORD * 2]
-push    qword[coordsY + DWORD * 2]
+mov     ecx, dword[r12]
+mov     r8d, dword[r13]
+mov     r9d, dword[r12 + DWORD * 2]
+push    qword[r13 + DWORD * 2]
 call    XDrawLine
 
 ret

@@ -74,7 +74,7 @@ main:
 mov dword[i], 0
 new_point:
 
-movzx ecx, dword[i]
+mov ecx, dword[i]
 call randomCoords
 mov dword[coordsX + DWORD * ecx], r8d
 
@@ -218,13 +218,13 @@ call    XDrawLine
 
 mov eax, dword[maxX]
 sub eax, dword[minX]
-mov i, eax
+mov dword[i], eax
 
 drawPointsLoop1:
 
 mov eax, dword[maxY]
 sub eax, dword[minY]
-mov j, eax
+mov dword[j], eax
 
 drawPointsLoop2:
 

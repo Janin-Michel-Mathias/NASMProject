@@ -179,14 +179,12 @@ mov     rsi, qword[gc]
 mov     edx, 0xFF0000
 call    XSetForeground
 
-mov eax, dword[maxX]
-sub eax, dword[minX]
+mov eax, dword[minX]
 mov dword[i], eax
 
 drawPointsLoop1:
 
-mov eax, dword[maxY]
-sub eax, dword[minY]
+mov eax, dword[minY]
 mov dword[j], eax
 
 drawPointsLoop2:
@@ -220,11 +218,6 @@ drawPointsLoop2:
 ; cmp rbx, 0
 ; jne end_loop
 
-; mov     rdi, qword[display_name]
-; mov     rsi, qword[gc]
-; mov     edx, 0x000000
-; call    XSetForeground
-
 ; mov rdi, qword[display_name]
 ; mov rsi, qword[window]
 ; mov rdx, qword[gc]
@@ -233,7 +226,7 @@ drawPointsLoop2:
 ; call XDrawPoint
 
 mov rdi, print
-movsx rsi, dword[i]
+mov rsi, dword[i]
 mov rax, 0
 call printf
 

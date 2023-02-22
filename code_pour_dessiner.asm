@@ -43,8 +43,8 @@ width:         	resd	1
 height:        	resd	1
 window:		    resq	1
 gc:		        resq    1
-coordsX:        resw    3
-coordsY:        resw    3    
+coordsX:        resd    3
+coordsY:        resd    3    
 i:              resb    1
 
 section .data
@@ -71,10 +71,10 @@ mov byte[i], 0
 new_point:
 
 call randomCoords
-mov [coordsX + WORD * i], r8w
+mov [coordsX + WORD * i], r8d
 
 call randomCoords
-mov [coordsY + WORD * i], r8w
+mov [coordsY + WORD * i], r8d
 
 inc i
 
@@ -157,8 +157,8 @@ draw_point:
 mov     rdi, qword[display_name]
 mov     rsi, qword[window]
 mov     rdx, qword[gc]
-movsx   ecx, word[coordsX + WORD * i]
-movsx   r8d, word[coordsY + WORD * i]
+movsx   ecx, dword[coordsX + WORD * i]
+movsx   r8d, dword[coordsY + WORD * i]
 call    XDrawPoint
 
 inc i
@@ -194,14 +194,14 @@ closeDisplay:
 global randomCoords
 randomCoords:
 
-RDRAND      r8w
+RDRAND      r8d
 
-cmp r8w, 0
+cmp r8d, 0
 jl randomCoords
 
-mov ax, r8w
-mov bx, 400
-cwd
-idiv bx
+mov eax, r8d
+mov ebx, 400
+cdq
+idiv ebx
 
-mov r8w, dx
+mov r8d, edx

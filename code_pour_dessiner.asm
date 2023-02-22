@@ -71,15 +71,15 @@ mov byte[i], 0
 new_point:
 
 call randomCoords
-mov [coordsX + WORD * i], r8d
+mov [coordsX + DWORD * i], r8d
 
 call randomCoords
-mov [coordsY + WORD * i], r8d
+mov [coordsY + DWORD * i], r8d
 
-; inc i
+inc i
 
-; cmp i, 3
-; jb new_point
+cmp i, 3
+jb new_point
 
 xor     rdi,rdi
 call    XOpenDisplay	; Création de display
@@ -150,12 +150,12 @@ mov i, 0
 
 print_loop:
 mov rdi, print
-movsx rsi, dword[coordsX + WORD * i]
+movsx rsi, dword[coordsX + DWORD * i]
 mov rax, 0
 call printf
 
 mov rdi, print
-movsx rsi, dword[coordsX + WORD * i]
+movsx rsi, dword[coordsX + DWORD * i]
 mov rax, 0
 call printf
 

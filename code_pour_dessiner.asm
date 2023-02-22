@@ -151,7 +151,7 @@ mov byte[i], 0
 
 print_loop:
 
-mov ecx, byte[i]
+movzx ecx, byte[i]
 mov rdi, print
 movsx rsi, dword[coordsX + DWORD * ecx]
 mov rax, 0

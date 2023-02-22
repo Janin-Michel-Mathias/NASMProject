@@ -179,44 +179,6 @@ mov     rsi, qword[gc]
 mov     edx, 0xFF0000
 call    XSetForeground
 
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[minX]
-mov     r8d, dword[minY]
-mov     r9d, dword[maxX]
-push    qword[minY]
-call    XDrawLine
-
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[minX]
-mov     r8d, dword[maxY]
-mov     r9d, dword[maxX]
-push    qword[maxY]
-call    XDrawLine
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[minX]
-mov     r8d, dword[minY]
-mov     r9d, dword[minX]
-push    qword[maxY]
-call    XDrawLine
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[maxX]
-mov     r8d, dword[minY]
-mov     r9d, dword[maxX]
-push    qword[maxY]
-call    XDrawLine
-
 mov eax, dword[maxX]
 sub eax, dword[minX]
 mov dword[i], eax
@@ -229,34 +191,34 @@ mov dword[j], eax
 
 drawPointsLoop2:
 
-mov r10, coordsX
-mov r11, coordsY
-movsx r12, dword[i]
-movsx r13, dword[j]
-call pointDansTriangle
-mov rbx, r15
+; mov r10, coordsX
+; mov r11, coordsY
+; movsx r12, dword[i]
+; movsx r13, dword[j]
+; call pointDansTriangle
+; mov rbx, r15
 
-mov r12, coordsX
-mov r13, coordsY
-call sensTriangle
+; mov r12, coordsX
+; mov r13, coordsY
+; call sensTriangle
 
-cmp r14b, 0
-je sensDirect
-cmp rbx, 3
-jne end_loop
+; cmp r14b, 0
+; je sensDirect
+; cmp rbx, 3
+; jne end_loop
 
-mov rdi, qword[display_name]
-mov rsi, qword[window]
-mov rdx, qword[gc]
-mov ecx, dword[i]
-mov r8d, dword[j]
-call XDrawPoint
+; mov rdi, qword[display_name]
+; mov rsi, qword[window]
+; mov rdx, qword[gc]
+; mov ecx, dword[i]
+; mov r8d, dword[j]
+; call XDrawPoint
 
-jmp end_loop
+; jmp end_loop
 
-sensDirect:
-cmp rbx, 0
-jne end_loop
+; sensDirect:
+; cmp rbx, 0
+; jne end_loop
 
 mov rdi, qword[display_name]
 mov rsi, qword[window]

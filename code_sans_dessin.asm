@@ -12,6 +12,7 @@ printCoords: db "Point %d : X: %lld Y: %lld",10 ,0
 printRectangle: db "Rectangle : X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
 printSensDirect: db "Sens: Direct", 10, 0
 printSensIndirect: db "Sens: Indirect", 10, 0
+printPointInterne: db "Point %d : X: %lld Y: %lld",10 ,0
 
 
 section .bss
@@ -19,10 +20,12 @@ section .bss
 coordsX: resd        3 
 coordsY: resd        3 
 i:       resd        1 
+j:       resd
 minX:    resd        1
 maxX:    resd        1
 minY:    resd        1
 maxY:    resd        1
+sens:    resb        1
 
 
 
@@ -86,8 +89,9 @@ call printf
 mov r10, coordsX
 mov r11, coordsY
 call sensTriangle
+mov byte[sens], ah
 
-cmp ah, 0
+cmp byte[sens], 0
 jne Indirect
 
 mov rdi, printSensDirect
@@ -99,10 +103,58 @@ finSens:
 mov rax, 0
 call printf
 
+mov ecx, minX
+mov dword[i], ecx
 
+loop_points_interne_1:
 
+mov ecx, minY
+mov dword[j], ecx
 
+loop_points_interne_2:
 
+mov r10, coordsX
+mov r11, coordsY
+movsx r12, dword[i]
+movsx r12, dword[j]
+call pointDansTriangle
+
+cmp byte[sens], 0
+jne Indirect_interne
+
+cmp r15, 3
+jne fin_loop_points
+
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
+
+jmp fin_loop_points
+
+Indirect_interne:
+
+cmp r15, 0
+jne fin_loop_points
+
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
+
+fin_loop_points:
+
+inc dword[j]
+mov ecx, dword[j]
+cmp ecx, dword[maxY]
+jb loop_points_interne_2
+
+inc dword[i]
+mov ecx, dword[i]
+cmp ecx, dword[maxX]
+jb loop_points_interne_1
 
 
 mov rax, 60

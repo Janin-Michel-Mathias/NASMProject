@@ -27,7 +27,7 @@ mov byte[i], 0
 
 def_coord_loop:
 
-mov ecx, byte[i]
+movsx ecx, byte[i]
 
 call randomCoords
 mov dword[coordsX + DWORD * ecx], r8d
@@ -43,11 +43,11 @@ mov byte[i], 0
 
 print_coords_loop:
 
-mov ecx, byte[i]
+movsx ecx, byte[i]
 
 mov rdi, printCoords
-mov rsi, dword[coordsX + DWORD * ecx]
-mov rdx, dword[coordsY + DWORD * ecx]
+movsx rsi, dword[coordsX + DWORD * ecx]
+movsx rdx, dword[coordsY + DWORD * ecx]
 mov rax, 0
 call printf
 

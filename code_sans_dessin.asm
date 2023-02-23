@@ -8,8 +8,10 @@ global main
 
 section .data
 
-printCoords: db "X: %lld Y: %lld",10 ,0
-printRectangle: db "X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
+printCoords: db "Point %d : X: %lld Y: %lld",10 ,0
+printRectangle: db "Rectangle : X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
+printSensDirect: db "Sens: Direct", 10, 0
+printSensIndirect: db "Sens: Indirect", 10, 0
 
 
 section .bss
@@ -51,8 +53,9 @@ print_coords_loop:
 movsx ecx, byte[i]
 
 mov rdi, printCoords
-movsx rsi, dword[coordsX + DWORD * ecx]
-movsx rdx, dword[coordsY + DWORD * ecx]
+movsx rsi, dword[i]
+movsx rdx, dword[coordsX + DWORD * ecx]
+movsx rcx, dword[coordsY + DWORD * ecx]
 mov rax, 0
 call printf
 
@@ -79,6 +82,26 @@ movsx rcx, dword[minY]
 movsx r8, dword[maxY]
 mov rax, 0
 call printf
+
+mov r10, coordsX
+mov r11, coordsY
+call sensTriangle
+
+cmp ah, 0
+jne Indirect
+
+mov rdi, printSensDirect
+jmp finSens
+Indirect:
+mov rdi, printSensIndirect
+
+finSens:
+mov rax, 0
+call printf
+
+
+
+
 
 
 

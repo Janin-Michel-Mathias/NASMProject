@@ -193,6 +193,7 @@ colorLoop2:
 mov rdi, print
 movsx rsi, dword[i]
 movsx rdx, dword[j]
+mov rax, 0
 call printf
 
 

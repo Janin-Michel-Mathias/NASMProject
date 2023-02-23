@@ -243,7 +243,6 @@ mov r9d, dword[r12 + DWORD * 2]
 endMax:
 ret
 
-
 global sensTriangle
 sensTriangle:
 
@@ -285,82 +284,5 @@ endSens:
 pop rbx
 mov rsp, rbp
 pop rbp
-
-ret
-
-global cotePoint
-cotePoint:
-; rdi xA
-; rsi xB
-; rdx yA
-; rcx yB
-; r8  xP
-; r9  yp
-
-sub rsi, rdi
-sub r8, rdi
-sub rcx, rdx
-sub r9, rdx
-
-mov rax, rsi
-imul r9
-
-mov rsi, rax
-
-mov rax, r8
-imul rcx
-
-sub rsi, rax
-
-cmp rsi, 0
-jl pointAGauche
-mov rax, 1
-jmp endCote
-pointAGauche:
-mov rax, 0
-
-endCote:
-
-ret
-
-
-
-global pointDansTriangle
-pointDansTriangle:
-
-mov rbx, 1
-mov r15, 0
-
-movsx rdi, dword[r10]
-movsx rsi, dword[r10 + DWORD]
-movsx rdx, dword[r11]
-movsx rcx, dword[r11 + DWORD]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
-
-next1:
-
-movsx rdi, dword[r10 + DWORD]
-movsx rsi, dword[r10 + DWORD * 2]
-movsx rdx, dword[r11 + DWORD]
-movsx rcx, dword[r11 + DWORD * 2]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
-
-movsx rdi, dword[r10 + DWORD]
-movsx rsi, dword[r10 + DWORD * 2]
-movsx rdx, dword[r11 + DWORD]
-movsx rcx, dword[r11 + DWORD * 2]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
 
 ret

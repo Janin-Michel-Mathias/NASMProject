@@ -177,7 +177,7 @@ mov r10, coordsX
 mov r11, coordsY
 call sensTriangle
 
-mov byte[sensTriangleVar], r14b
+mov byte[sensTriangleVar], ah
 
 mov ecx, dword[minX]
 mov dword[i], ecx
@@ -405,11 +405,11 @@ sub dword[r10], eax
 cmp dword[r10], 0
 jl direct
 
-mov r14b, 1
+mov ah, 1
 jmp endSens
 
 direct:
-mov r14b, 0
+mov ah, 0
 
 endSens:
 ret

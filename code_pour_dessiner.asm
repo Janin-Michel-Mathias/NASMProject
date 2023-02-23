@@ -173,11 +173,11 @@ mov dword[minY], r9d
 call triangleMaxCoordOnAxis
 mov dword[maxY], r9d
 
-mov r12, coordsX
-mov r13, coordsY
-; call sensTriangle
+mov r10, coordsX
+mov r11, coordsY
+call sensTriangle
 
-; mov byte[sensTriangleVar], r14b
+mov byte[sensTriangleVar], r14b
 
 mov ecx, dword[minX]
 mov dword[i], ecx
@@ -383,13 +383,6 @@ ret
 
 global sensTriangle
 sensTriangle:
-
-; r12 coords X
-; r13 coords Y
-; r14b =  0:direct  1: indirect
-
-mov r10, r12
-mov r11, r13
 
 mov r9d, dword[r10 + DWORD]
 

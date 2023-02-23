@@ -107,9 +107,6 @@ call printf
 mov ecx, minX
 mov rdi, printValue
 movsx rsi, ecx
-mov rax, 0
-call printf
-mov dword[i], ecx
 
 loop_points_interne_1:
 

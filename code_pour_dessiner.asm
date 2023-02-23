@@ -157,12 +157,6 @@ mov     rsi, qword[gc]
 mov     edx, 0x000000
 call    XSetForeground
 
-mov r12, coordsX
-mov r13, coordsY
-call drawTriangle
-
-mov r12, coordsX
-
 call triangleMinCoordOnAxis
 mov dword[minX], r9d
 call triangleMaxCoordOnAxis
@@ -200,6 +194,12 @@ inc dword[i]
 mov ecx, dword[i]
 cmp ecx, dword[maxX]
 jl colorLoop1
+
+mov r12, coordsX
+mov r13, coordsY
+call drawTriangle
+
+mov r12, coordsX
 
 
 ; ############################

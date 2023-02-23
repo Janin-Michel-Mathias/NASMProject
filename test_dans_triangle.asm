@@ -9,7 +9,7 @@ global main
 section .data
 
 dedans: db "Dedans !", 10, 0
-dehors: db "Degors", 10, 0
+dehors: db "Dehors", 10, 0
 
 section .bss
 
@@ -46,7 +46,7 @@ call pointDansTriangle
 cmp byte[sensTriangle], 0
 je direct_main
 
-cmp r15, 0
+cmp r15, 3
 jne end_bad
 
 mov rdi, dedans
@@ -57,7 +57,7 @@ jmp end_loop
 
 direct_main:
 
-cmp r15, 3
+cmp r15, 0
 jne end_bad
 
 mov rdi, dedans

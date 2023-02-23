@@ -389,8 +389,8 @@ pop rbp
 ret
 
 
-global triangleMinCoordOnAxis
-triangleMinCoordOnAxis:
+global triangleMaxCoordOnAxis
+triangleMaxCoordOnAxis:
 
 mov eax, dword[r12 + DWORD]
 
@@ -417,8 +417,8 @@ ret
 
 
 
-global triangleMaxCoordOnAxis
-triangleMaxCoordOnAxis:
+global triangleMinCoordOnAxis
+triangleMinCoordOnAxis:
 
 mov eax, dword[r12 + DWORD]
 

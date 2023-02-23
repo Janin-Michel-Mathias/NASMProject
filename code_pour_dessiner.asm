@@ -45,13 +45,11 @@ window:		    resq	1
 gc:		        resq    1
 coordsX:        resd    3
 coordsY:        resd    3    
-i:              resd    1
-j:              resd    1
+i:              resb    1
 minX:           resd    1
 maxX:           resd    1
 minY:           resd    1
 maxY:           resd    1
-sensTriangleVar:    resb    1
 
 section .data
 
@@ -61,7 +59,6 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: dd "%d: %d ", 10, 0
 
 section .text
 	
@@ -73,19 +70,19 @@ main:
 
 ;define coords
 
-mov dword[i], 0
+mov byte[i], 0
 new_point:
 
-mov ecx, dword[i]
+movzx ecx, byte[i]
 call randomCoords
 mov dword[coordsX + DWORD * ecx], r8d
 
 call randomCoords
 mov dword[coordsY + DWORD * ecx], r8d
 
-inc dword[i]
+inc byte[i]
 
-cmp dword[i], 3
+cmp byte[i], 3
 jb new_point
 
 xor     rdi,rdi
@@ -157,10 +154,11 @@ mov     rsi, qword[gc]
 mov     edx, 0x000000
 call    XSetForeground
 
-inc dword[j]
-mov ecx, dword[j]
-cmp ecx, dword[maxY]
-jl colorLoop2
+mov r12, coordsX
+mov r13, coordsY
+call drawTriangle
+
+mov r12, coordsX
 
 call triangleMinCoordOnAxis
 mov dword[minX], r9d
@@ -173,80 +171,54 @@ mov dword[minY], r9d
 call triangleMaxCoordOnAxis
 mov dword[maxY], r9d
 
-mov r10, coordsX
-mov r11, coordsY
-; call sensTriangle
 
-mov byte[sensTriangleVar], ah
-
-mov ecx, dword[minX]
-mov dword[i], ecx
-
-colorLoop1:
-
-mov ecx, dword[minY]
-mov dword[j], ecx
-
-colorLoop2:
-
-mov rdi, coordsX
-mov rsi, coordsY
-movsx rdx, dword[i]
-movsx rcx, dword[j]
-call pointDansTriangle
-
-cmp r15, 3
-jne end_loop
-
-mov     rdi,qword[display_name]
-mov     rsi,qword[window]
-mov     rdx,qword[gc]
-mov     ecx, dword[i]	; coordonnée source en x
-mov     r8d,dword[j]	; coordonnée source en y
-call    XDrawPoint
-
-end_loop:
-
-mov r12, coordsX
-mov r13, coordsY
-call drawTriangle
-
-mov r12, coordsX
+mov     rdi, qword[display_name]
+mov     rsi, qword[gc]
+mov     edx, 0xFF0000
+call    XSetForeground
 
 
-inc dword[i]
-mov ecx, dword[i]
-cmp ecx, dword[maxX]
-jl colorLoop1
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[minY]
+mov     r9d, dword[maxX]
+push    qword[minY]
+call    XDrawLine
 
 
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[maxY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[minX]
+mov     r8d, dword[minY]
+mov     r9d, dword[minX]
+push    qword[maxY]
+call    XDrawLine
+
+mov     rdi, qword[display_name]
+mov     rsi, qword[window]
+mov     rdx, qword[gc]
+mov     ecx, dword[maxX]
+mov     r8d, dword[minY]
+mov     r9d, dword[maxX]
+push    qword[maxY]
+call    XDrawLine
 
 
 ; ############################
 ; # FIN DE LA ZONE DE DESSIN #
 ; ############################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -280,7 +252,6 @@ closeDisplay:
     xor	    rdi,rdi
     call    exit
 	
-
 
 
 global randomCoords
@@ -345,8 +316,8 @@ pop rbp
 ret
 
 
-global triangleMaxCoordOnAxis
-triangleMaxCoordOnAxis:
+global triangleMinCoordOnAxis
+triangleMinCoordOnAxis:
 
 mov eax, dword[r12 + DWORD]
 
@@ -373,8 +344,8 @@ ret
 
 
 
-global triangleMinCoordOnAxis
-triangleMinCoordOnAxis:
+global triangleMaxCoordOnAxis
+triangleMaxCoordOnAxis:
 
 mov eax, dword[r12 + DWORD]
 
@@ -402,10 +373,12 @@ ret
 global sensTriangle
 sensTriangle:
 
-push    rbp
-mov     rbp, rsp
-push rbx
+; r12 coords X
+; r13 coords Y
+; r14b =  0:direct  1: indirect
 
+mov r10, r12
+mov r11, r13
 
 mov r9d, dword[r10 + DWORD]
 
@@ -428,94 +401,11 @@ sub dword[r10], eax
 cmp dword[r10], 0
 jl direct
 
-mov ah, 1
+mov r14b, 1
 jmp endSens
 
 direct:
-mov ah, 0
+mov r14b, 0
 
 endSens:
-
-
-pop rbx
-mov rsp, rbp
-pop rbp
-
-ret
-
-global cotePoint
-cotePoint:
-; rdi xA
-; rsi xB
-; rdx yA
-; rcx yB
-; r8  xP
-; r9  yp
-
-sub rsi, rdi
-sub r8, rdi
-sub rcx, rdx
-sub r9, rdx
-
-mov rax, rsi
-imul r9
-
-mov rsi, rax
-
-mov rax, r8
-imul rcx
-
-sub rsi, rax
-
-cmp rsi, 0
-jl pointAGauche
-mov rax, 1
-jmp endCote
-pointAGauche:
-mov rax, 0
-
-endCote:
-
-ret
-
-
-
-global pointDansTriangle
-pointDansTriangle:
-
-mov rbx, 1
-mov r15, 0
-
-movsx rdi, dword[r10]
-movsx rsi, dword[r10 + DWORD]
-movsx rdx, dword[r11]
-movsx rcx, dword[r11 + DWORD]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
-
-next1:
-
-movsx rdi, dword[r10 + DWORD]
-movsx rsi, dword[r10 + DWORD * 2]
-movsx rdx, dword[r11 + DWORD]
-movsx rcx, dword[r11 + DWORD * 2]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
-
-movsx rdi, dword[r10 + DWORD]
-movsx rsi, dword[r10 + DWORD * 2]
-movsx rdx, dword[r11 + DWORD]
-movsx rcx, dword[r11 + DWORD * 2]
-mov r8, r12
-mov r9, r13
-call cotePoint
-
-add r15, rax
-
 ret

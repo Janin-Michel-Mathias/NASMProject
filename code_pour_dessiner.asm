@@ -51,6 +51,7 @@ minX:           resd    1
 maxX:           resd    1
 minY:           resd    1
 maxY:           resd    1
+sensTriangle    resb    1
 
 section .data
 
@@ -60,7 +61,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: dd "%lld",10,0
+print: dd "%lld: %lld",10,0
 
 section .text
 	
@@ -178,66 +179,35 @@ mov     rsi, qword[gc]
 mov     edx, 0xFF0000
 call    XSetForeground
 
-; mov eax, dword[minX]
-; mov dword[i], eax
 
-; drawPointsLoop1:
+mov r12, dword[coordsX]
+mov r13, dword[coordsY]
 
-; mov eax, dword[minY]
-; mov dword[j], eax
+mov ecx, dword[minX]
+mov dword[i], ecx
 
-; drawPointsLoop2:
+colorLoop1:
 
-; mov r10, coordsX
-; mov r11, coordsY
-; movsx r12, dword[i]
-; movsx r13, dword[j]
-; call pointDansTriangle
-; mov rbx, r15
+mov ecx, dword[minY]
+mov dword[j], ecx
 
-; mov r12, coordsX
-; mov r13, coordsY
-; call sensTriangle
+colorLoop2:
 
-; cmp r14b, 0
-; je sensDirect
-; cmp rbx, 3
-; jne end_loop
-
-; mov rdi, qword[display_name]
-; mov rsi, qword[window]
-; mov rdx, qword[gc]
-; mov ecx, dword[i]
-; mov r8d, dword[j]
-; call XDrawPoint
-
-; jmp end_loop
-
-; sensDirect:
-; cmp rbx, 0
-; jne end_loop
-
-; mov rdi, qword[display_name]
-; mov rsi, qword[window]
-; mov rdx, qword[gc]
-; mov ecx, dword[i]
-; mov r8d, dword[j]
-; call XDrawPoint
-
-; end_loop:
-
-; inc dword[j]
-; mov eax, dword[j]
-; cmp eax, dword[maxY]
-; jae drawPointsLoop2;
-
-; inc dword[i]
-; mov eax, dword[i]
-; cmp eax, dword[maxX]
-; jae drawPointsLoop1;
+mov rdi, print
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+call printf
 
 
+inc dword[j]
+mov ecx, dword[j]
+cmp ecx, dword[maxY]
+jb colorLoop2
 
+inc dword[i]
+mov ecx, dword[i]
+cmp ecx, dword[maxX]
+jb colorLoop1
 
 
 ; ############################
@@ -523,6 +493,47 @@ movsx rdx, dword[r11 + DWORD * 2]
 movsx rcx, dword[r11 + DWORD]
 movsx r8, dword[r12]
 movsx r9, dword[r13]
+call cotePoint
+
+add r15, rax
+
+ret
+
+
+global pointDansTriangle
+pointDansTriangle:
+
+mov rbx, 1
+mov r15, 0
+
+movsx rdi, dword[r10]
+movsx rsi, dword[r10 + DWORD]
+movsx rdx, dword[r11]
+movsx rcx, dword[r11 + DWORD]
+mov r8, r12
+mov r9, r13
+call cotePoint
+
+add r15, rax
+
+next1:
+
+movsx rdi, dword[r10 + DWORD]
+movsx rsi, dword[r10 + DWORD * 2]
+movsx rdx, dword[r11 + DWORD]
+movsx rcx, dword[r11 + DWORD * 2]
+mov r8, r12
+mov r9, r13
+call cotePoint
+
+add r15, rax
+
+movsx rdi, dword[r10 + DWORD]
+movsx rsi, dword[r10 + DWORD * 2]
+movsx rdx, dword[r11 + DWORD]
+movsx rcx, dword[r11 + DWORD * 2]
+mov r8, r12
+mov r9, r13
 call cotePoint
 
 add r15, rax

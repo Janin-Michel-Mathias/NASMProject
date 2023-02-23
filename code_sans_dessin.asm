@@ -118,6 +118,12 @@ movsx r12, dword[i]
 movsx r12, dword[j]
 call pointDansTriangle
 
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
+
 cmp byte[sens], 0
 jne Indirect_interne
 

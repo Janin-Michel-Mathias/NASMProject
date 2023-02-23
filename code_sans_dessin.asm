@@ -7,14 +7,14 @@ global main
 
 section .data
 
-printCoords: "X: %lld Y: %lld",10 ,0
+printCoords: db "X: %lld Y: %lld",10 ,0
 
 
 section .bss
 
-resd coordsX        3 
-resd coordsY        3 
-resd i              1 
+coordsX: resd        3 
+coordsY: resd        3 
+i:       resd        1 
 
 
 

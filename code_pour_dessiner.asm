@@ -175,7 +175,7 @@ mov dword[maxY], r9d
 
 mov r10, coordsX
 mov r11, coordsY
-call sensTriangle
+; call sensTriangle
 
 mov byte[sensTriangleVar], ah
 
@@ -501,6 +501,3 @@ call cotePoint
 add r15, rax
 
 ret
-
-
-

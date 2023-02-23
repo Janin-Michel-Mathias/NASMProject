@@ -175,22 +175,22 @@ mov dword[maxY], r9d
 
 
 mov rdi, print
-movsx rsi, minX
+movsx rsi, dword[minX]
 mov rax, 0
 call printf
 
 mov rdi, print
-movsx rsi, minY
+movsx rsi, dword[minY]
 mov rax, 0
 call printf
 
 mov rdi, print
-movsx rsi, maxX
+movsx rsi, dword[maxX]
 mov rax, 0
 call printf
 
 mov rdi, print
-movsx rsi, maxY
+movsx rsi, dword[maxY]
 mov rax, 0
 call printf
 

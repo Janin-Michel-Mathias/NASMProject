@@ -386,11 +386,8 @@ sensTriangle:
 
 push    rbp
 mov     rbp, rsp
-
 push rbx
-push r9
-push r10
-push r11
+
 
 mov r9d, dword[r10 + DWORD]
 
@@ -421,13 +418,9 @@ mov ah, 0
 
 endSens:
 
-pop r11
-pop r10
-pop r9
+
 pop rbx
-
 mov rsp, rbp
-
 pop rbp
 
 ret

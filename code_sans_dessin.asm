@@ -105,7 +105,6 @@ mov rax, 0
 call printf
 
 mov ecx, minX
-mov dword[i], ecx
 
 loop_points_interne_1:
 

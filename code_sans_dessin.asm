@@ -20,6 +20,8 @@ resd i              1
 
 section .text
 
+main:
+
 mov byte[i], 0
 
 def_coord_loop:

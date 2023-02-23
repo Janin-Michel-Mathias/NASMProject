@@ -44,7 +44,9 @@ height:        	resd	1
 window:		    resq	1
 gc:		        resq    1
 coordsX:        resd    3
-coordsY:        resd    3    
+coordsY:        resd    3
+coordsXCopy:    resd    3
+coordsYCopy:    resw    3    
 i:              resd    1
 j:              resd    1
 minX:           resd    1
@@ -192,28 +194,39 @@ mov dword[maxY], r9d
 
 ;determine triangle sens
 
-mov r10, coordsX
-mov r11, coordsY
+mov dword[i], 0
+copy_loop:
 
-mov r9d, dword[r10 + DWORD]
+mov ecx, dword[coordsX + DWORD * i]
+mov dword[coordsXCopy], ecx
 
-sub dword[r10], r9d ; -11
-sub dword[r10 + DWORD * 2], r9d ; -15
-mov r9d, dword[r11 + DWORD]
-sub dword[r11], r9d ; -49
-sub dword[r11 + DWORD * 2], r9d ; -9
+mov ecx, dword[coordsY + DWORD * i]
+mov dword[coordsYCopy], ecx
 
-mov eax, dword[r10]
-imul dword[r11 + DWORD * 2]
+inc dword[i]
 
-mov dword[r10], eax
+cmp dword[i], 3
+jb copy_loop
 
-mov eax, dword[r10 + DWORD * 2]
-imul dword[r11]
+mov r9d, dword[coordsXCopy + DWORD]
 
-sub dword[r10], eax
+sub dword[coordsXCopy], r9d ; -11
+sub dword[coordsXCopy + DWORD * 2], r9d ; -15
+mov r9d, dword[coordsYCopy + DWORD]
+sub dword[coordsYCopy], r9d ; -49
+sub dword[coordsYCopy + DWORD * 2], r9d ; -9
 
-cmp dword[r10], 0
+mov eax, dword[coordsXCopy]
+imul dword[coordsYCopy + DWORD * 2]
+
+mov dword[coordsXCopy], eax
+
+mov eax, dword[coordsXCopy + DWORD * 2]
+imul dword[coordsYCopy]
+
+sub dword[coordsXCopy], eax
+
+cmp dword[CoordsXCopy], 0
 jl direct
 
 mov byte[sensTriangleVar], 1

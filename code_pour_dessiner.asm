@@ -184,6 +184,11 @@ mov dword[j], ecx
 
 colorLoop2:
 
+mov r12, coordsX
+mov r13, coordsY
+call drawTriangle
+
+mov r12, coordsX
 
 inc dword[j]
 mov ecx, dword[j]
@@ -195,11 +200,7 @@ mov ecx, dword[i]
 cmp ecx, dword[maxX]
 jl colorLoop1
 
-mov r12, coordsX
-mov r13, coordsY
-call drawTriangle
 
-mov r12, coordsX
 
 
 ; ############################

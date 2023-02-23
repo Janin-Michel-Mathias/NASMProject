@@ -20,7 +20,7 @@ section .bss
 coordsX: resd        3 
 coordsY: resd        3 
 i:       resd        1 
-j:       resd
+j:       resd        1
 minX:    resd        1
 maxX:    resd        1
 minY:    resd        1

@@ -105,7 +105,7 @@ mov rax, 0
 call printf
 
 mov ecx, minX
-mov dword[i], ecx
+movsx dword[i], ecx
 
 mov rdi, printValue
 movsx rsi, dword[i]

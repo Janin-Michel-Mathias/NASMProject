@@ -200,12 +200,12 @@ call printf
 inc dword[j]
 mov ecx, dword[j]
 cmp ecx, dword[maxY]
-jb colorLoop2
+jl colorLoop2
 
 inc dword[i]
 mov ecx, dword[i]
 cmp ecx, dword[maxX]
-jb colorLoop1
+jl colorLoop1
 
 
 ; ############################

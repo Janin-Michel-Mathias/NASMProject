@@ -8,6 +8,7 @@ global main
 
 section .data
 
+printValue: "%d", 10, 0
 printCoords: db "Point %d : X: %lld Y: %lld",10 ,0
 printRectangle: db "Rectangle : X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
 printSensDirect: db "Sens: Direct", 10, 0
@@ -105,6 +106,11 @@ call printf
 
 mov ecx, minX
 mov dword[i], ecx
+
+mov rdi, printValue
+mov rsi, dword[i]
+mov rax, 0
+call printf
 
 loop_points_interne_1:
 

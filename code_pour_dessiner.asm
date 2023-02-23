@@ -186,12 +186,6 @@ movsx rdx, dword[maxY]
 mov rax, 0
 call printf
 
-mov     rdi, qword[display_name]
-mov     rsi, qword[gc]
-mov     edx, 0xFF0000
-call    XSetForeground
-
-
 mov r12, coordsX
 mov r13, coordsY
 call sensTriangle
@@ -283,6 +277,7 @@ closeDisplay:
     xor	    rdi,rdi
     call    exit
 	
+
 
 
 global randomCoords

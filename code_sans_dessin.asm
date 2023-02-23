@@ -9,6 +9,7 @@ global main
 section .data
 
 printCoords: db "X: %lld Y: %lld",10 ,0
+printRectangle: db "X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
 
 
 section .bss
@@ -16,6 +17,10 @@ section .bss
 coordsX: resd        3 
 coordsY: resd        3 
 i:       resd        1 
+minX:    resd        1
+maxX:    resd        1
+minY:    resd        1
+maxY:    resd        1
 
 
 
@@ -54,6 +59,26 @@ call printf
 inc byte[i]
 cmp byte[i], 3
 jl print_coords_loop
+
+call triangleMinCoordOnAxis
+mov dword[minX], r9d
+call triangleMaxCoordOnAxis
+mov dword[maxX], r9d
+
+mov r12, coordsY
+call triangleMinCoordOnAxis
+mov dword[minY], r9d
+call triangleMaxCoordOnAxis
+mov dword[maxY], r9d
+
+mov rdi, printRectangle
+movsx rsi, dword[minX]
+movsx rdx, dword[maxX]
+movsx rcx, dword[minY]
+movsx r8, dword[maxY]
+mov rax, 0
+call printf
+
 
 
 mov rax, 60

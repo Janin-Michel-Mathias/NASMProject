@@ -124,7 +124,7 @@ movsx rdx, edx
 mov rax, 0
 call printf
 
-cmp sens, 0
+cmp byte[sens], 0
 jne Indirect_interne
 
 cmp r15, 3

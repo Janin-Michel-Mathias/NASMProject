@@ -61,7 +61,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: dd "%lld: %lld",10,0
+print: dd "%d: %d", 10, 0
 
 section .text
 	
@@ -192,8 +192,8 @@ mov     edx, 0xFF0000
 call    XSetForeground
 
 
-; mov r12, coordsX
-; mov r13, coordsY
+mov r12, coordsX
+mov r13, coordsY
 ; call sensTriangle
 
 ; mov byte[sensTriangleVar], r14b

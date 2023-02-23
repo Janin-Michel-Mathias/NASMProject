@@ -188,7 +188,7 @@ call printf
 
 mov r12, coordsX
 mov r13, coordsY
-call sensTriangle
+; call sensTriangle
 
 ; mov byte[sensTriangleVar], r14b
 

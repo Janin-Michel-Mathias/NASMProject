@@ -60,7 +60,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: dd "%d", 10, 0
+print: dd "%d",10,0
 
 section .text
 	

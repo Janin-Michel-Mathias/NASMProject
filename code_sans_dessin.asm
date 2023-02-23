@@ -131,6 +131,12 @@ movsx rdx, dword[j]
 mov rax, 0
 call printf
 
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
+
 jmp fin_loop_points
 
 Indirect_interne:

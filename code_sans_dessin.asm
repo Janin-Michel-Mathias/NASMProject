@@ -105,12 +105,11 @@ mov rax, 0
 call printf
 
 mov ecx, minX
-movsx dword[i], ecx
-
 mov rdi, printValue
-movsx rsi, dword[i]
+movsx rsi, ecx
 mov rax, 0
 call printf
+mov dword[i], ecx
 
 loop_points_interne_1:
 

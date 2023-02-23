@@ -12,7 +12,7 @@ printCoords: db "Point %d : X: %lld Y: %lld",10 ,0
 printRectangle: db "Rectangle : X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
 printSensDirect: db "Sens: Direct", 10, 0
 printSensIndirect: db "Sens: Indirect", 10, 0
-printPointInterne: db "Point %d : X: %lld Y: %lld",10 ,0
+printPointInterne: db "Point : X: %lld Y: %lld",10 ,0
 
 
 section .bss

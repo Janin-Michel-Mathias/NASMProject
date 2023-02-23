@@ -154,12 +154,12 @@ fin_loop_points:
 inc dword[j]
 mov ecx, dword[j]
 cmp ecx, dword[maxY]
-jl loop_points_interne_2
+jb loop_points_interne_2
 
 inc dword[i]
 mov ecx, dword[i]
 cmp ecx, dword[maxX]
-jl loop_points_interne_1
+jb loop_points_interne_1
 
 
 mov rax, 60

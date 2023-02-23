@@ -113,11 +113,11 @@ mov dword[j], ecx
 
 loop_points_interne_2:
 
-; mov rdi, printPointInterne
-; movsx rsi, dword[i]
-; movsx rdx, dword[j]
-; mov rax, 0
-; call printf
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
 
 mov r10, coordsX
 mov r11, coordsY

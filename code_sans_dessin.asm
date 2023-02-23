@@ -8,7 +8,7 @@ global main
 
 section .data
 
-printValue: "%d", 10, 0
+printValue: db "%d", 10, 0
 printCoords: db "Point %d : X: %lld Y: %lld",10 ,0
 printRectangle: db "Rectangle : X1: %lld X2: %lld Y1: %lld Y2: %lld", 10, 0
 printSensDirect: db "Sens: Direct", 10, 0

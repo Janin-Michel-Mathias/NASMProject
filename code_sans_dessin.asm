@@ -121,7 +121,7 @@ call pointDansTriangle
 cmp byte[sens], 0
 jne Indirect_interne
 
-cmp r15, 3
+cmp r15, 0
 jne fin_loop_points
 
 mov rdi, printPointInterne
@@ -134,7 +134,7 @@ jmp fin_loop_points
 
 Indirect_interne:
 
-cmp r15, 0
+cmp r15, 3
 jne fin_loop_points
 
 mov rdi, printPointInterne

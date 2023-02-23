@@ -60,7 +60,7 @@ x1:	dd	0
 x2:	dd	0
 y1:	dd	0
 y2:	dd	0
-print: dd "%d",10,0
+print: dd "%lld",10,0
 
 section .text
 	
@@ -175,19 +175,22 @@ mov dword[maxY], r9d
 
 
 mov rdi, print
-movsx rsi, dword[minX]
+movsx rsi, minX
 mov rax, 0
 call printf
+
 mov rdi, print
-movsx rsi, dword[minY]
+movsx rsi, minY
 mov rax, 0
 call printf
+
 mov rdi, print
-movsx rsi, dword[maxX]
+movsx rsi, maxX
 mov rax, 0
 call printf
+
 mov rdi, print
-movsx rsi, dword[maxY]
+movsx rsi, maxY
 mov rax, 0
 call printf
 

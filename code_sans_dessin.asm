@@ -67,20 +67,6 @@ ret
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 global randomCoords
 randomCoords:
 
@@ -97,51 +83,6 @@ idiv ebx
 mov r8d, edx
 
 ret
-
-global drawTriangle
-drawTriangle:
-
-;r12 = coordonnées de début du triangle dans le tableau coordsX
-;r13 = idem pour coordsY
-
-push    rbp
-mov     rbp, rsp
-push    rbx
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[r12]
-mov     r8d, dword[r13]
-mov     r9d, dword[r12 + DWORD]
-push    qword[r13 + DWORD]
-call    XDrawLine
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[r12 + DWORD]
-mov     r8d, dword[r13 + DWORD]
-mov     r9d, dword[r12 + DWORD * 2]
-push    qword[r13 + DWORD * 2]
-call    XDrawLine
-
-mov     rdi, qword[display_name]
-mov     rsi, qword[window]
-mov     rdx, qword[gc]
-mov     ecx, dword[r12]
-mov     r8d, dword[r13]
-mov     r9d, dword[r12 + DWORD * 2]
-push    qword[r13 + DWORD * 2]
-call    XDrawLine
-
-pop rbx
-
-mov rsp, rbp
-pop rbp
-
-ret
-
 
 global triangleMaxCoordOnAxis
 triangleMaxCoordOnAxis:

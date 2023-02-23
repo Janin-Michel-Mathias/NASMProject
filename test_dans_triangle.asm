@@ -28,8 +28,8 @@ mov dword[coordsX + DWORD], 25
 mov dword[coordsX + DWORD], 69
 mov dword[coordsX + DWORD * 2], 10
 mov dword[coordsX + DWORD * 2], 60
-mov dword[pointX], 16
-mov dword[pointX], 40
+mov dword[pointX], 0
+mov dword[pointX], 0
 
 mov r10, coordsX
 mov r11, coordsY

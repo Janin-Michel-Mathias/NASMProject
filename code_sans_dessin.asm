@@ -1,6 +1,7 @@
 extern printf
 
 %define NB_TRIANGLES
+%define DWORD 4
 
 global main
 

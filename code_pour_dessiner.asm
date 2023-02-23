@@ -192,11 +192,11 @@ mov     edx, 0xFF0000
 call    XSetForeground
 
 
-mov r12, coordsX
-mov r13, coordsY
-call sensTriangle
+; mov r12, coordsX
+; mov r13, coordsY
+; call sensTriangle
 
-mov byte[sensTriangleVar], r14b
+; mov byte[sensTriangleVar], r14b
 
 ; mov ecx, dword[minX]
 ; mov dword[i], ecx

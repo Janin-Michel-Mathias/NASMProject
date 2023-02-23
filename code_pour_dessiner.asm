@@ -232,7 +232,7 @@ call printf
 end_loop:
 
 inc dword[j]
-movs eax, dword[j]
+mov eax, dword[j]
 cmp eax, dword[maxY]
 jae drawPointsLoop2;
 

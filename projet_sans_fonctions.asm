@@ -197,16 +197,16 @@ mov dword[maxY], r9d
 mov dword[i], 0
 copy_loop:
 
-movsx ecx, dword[coordsX + DWORD * i]
+mov ecx, dword[coordsX + DWORD * i]
 mov dword[coordsXCopy], ecx
 
-movsx ecx, dword[coordsY + DWORD * i]
+mov ecx, dword[coordsY + DWORD * i]
 mov dword[coordsYCopy], ecx
 
 inc dword[i]
 
 cmp dword[i], 3
-jb copy_loop
+jl copy_loop
 
 mov r9d, dword[coordsXCopy + DWORD]
 

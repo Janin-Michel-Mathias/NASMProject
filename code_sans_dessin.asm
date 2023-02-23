@@ -114,25 +114,25 @@ loop_points_interne_2:
 
 mov r10, coordsX
 mov r11, coordsY
-movsx r12, dword[ecx]
-movsx r12, dword[edx]
+movsx r12, ecx
+movsx r12, edx
 call pointDansTriangle
 
 mov rdi, printPointInterne
-movsx rsi, dword[ecx]
-movsx rdx, dword[edx]
+movsx rsi, ecx
+movsx rdx, edx
 mov rax, 0
 call printf
 
-cmp byte[sens], 0
+cmp sens, 0
 jne Indirect_interne
 
 cmp r15, 3
 jne fin_loop_points
 
 mov rdi, printPointInterne
-movsx rsi, dword[ecx]
-movsx rdx, dword[edx]
+movsx rsi, ecx
+movsx rdx, edx
 mov rax, 0
 call printf
 
@@ -144,20 +144,19 @@ cmp r15, 0
 jne fin_loop_points
 
 mov rdi, printPointInterne
-movsx rsi, dword[ecx]
-movsx rdx, dword[edx]
+movsx rsi, ecx
+movsx rdx, edx
 mov rax, 0
 call printf
 
 fin_loop_points:
 
-inc dword[edx]
-mov ecx, dword[edx]
+inc edx
+mov ecx, edx
 cmp ecx, dword[maxY]
 jb loop_points_interne_2
 
-inc dword[ecx]
-mov ecx, dword[ecx]
+inc ecx
 cmp ecx, dword[maxX]
 jb loop_points_interne_1
 

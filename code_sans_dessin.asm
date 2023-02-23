@@ -113,6 +113,12 @@ mov dword[j], ecx
 
 loop_points_interne_2:
 
+mov rdi, printPointInterne
+movsx rsi, dword[i]
+movsx rdx, dword[j]
+mov rax, 0
+call printf
+
 mov r10, coordsX
 mov r11, coordsY
 movsx r12, dword[i]
@@ -124,12 +130,6 @@ jne Indirect_interne
 
 cmp r15, 3
 jne fin_loop_points
-
-mov rdi, printPointInterne
-movsx rsi, dword[i]
-movsx rdx, dword[j]
-mov rax, 0
-call printf
 
 mov rdi, printPointInterne
 movsx rsi, dword[i]

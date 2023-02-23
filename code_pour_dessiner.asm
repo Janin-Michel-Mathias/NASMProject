@@ -198,31 +198,31 @@ call sensTriangle
 
 mov byte[sensTriangleVar], r14b
 
-mov ecx, dword[minX]
-mov dword[i], ecx
+; mov ecx, dword[minX]
+; mov dword[i], ecx
 
-colorLoop1:
+; colorLoop1:
 
-mov ecx, dword[minY]
-mov dword[j], ecx
+; mov ecx, dword[minY]
+; mov dword[j], ecx
 
-colorLoop2:
+; colorLoop2:
 
-; mov rdi, print
-; movsx rsi, dword[i]
-; movsx rdx, dword[j]
-; call printf
+; ; mov rdi, print
+; ; movsx rsi, dword[i]
+; ; movsx rdx, dword[j]
+; ; call printf
 
 
-inc dword[j]
-mov ecx, dword[j]
-cmp ecx, dword[maxY]
-jb colorLoop2
+; inc dword[j]
+; mov ecx, dword[j]
+; cmp ecx, dword[maxY]
+; jb colorLoop2
 
-inc dword[i]
-mov ecx, dword[i]
-cmp ecx, dword[maxX]
-jb colorLoop1
+; inc dword[i]
+; mov ecx, dword[i]
+; cmp ecx, dword[maxX]
+; jb colorLoop1
 
 
 ; ############################

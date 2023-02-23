@@ -189,6 +189,24 @@ mov dword[j], ecx
 
 colorLoop2:
 
+mov rdi, coordsX
+mov rsi, coordsY
+movsx rdx, dword[i]
+movsx rcx, dword[j]
+call pointDansTriangle
+
+cmp r15, 3
+jne end_loop
+
+mov     rdi,qword[display_name]
+mov     rsi,qword[window]
+mov     rdx,qword[gc]
+mov     ecx, dword[i]	; coordonnée source en x
+mov     r8d,dword[j]	; coordonnée source en y
+call    XDrawPoint
+
+end_loop:
+
 mov r12, coordsX
 mov r13, coordsY
 call drawTriangle

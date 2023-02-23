@@ -180,8 +180,8 @@ mov     edx, 0xFF0000
 call    XSetForeground
 
 
-mov r12, dword[coordsX]
-mov r13, dword[coordsY]
+mov r12, coordsX
+mov r13, coordsY
 call sensTriangle
 
 mov byte[sensTriangleVar], r14b

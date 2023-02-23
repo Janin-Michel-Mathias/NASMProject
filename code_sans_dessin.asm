@@ -29,10 +29,10 @@ def_coord_loop:
 mov ecx, byte[i]
 
 call randomCoords
-mov dword[coordsX + DWORD * ecx]
+mov dword[coordsX + DWORD * ecx], r8d
 
 call randomCoords
-mov dword[coordsY + DWORD * ecx]
+mov dword[coordsY + DWORD * ecx], r8d
 
 inc byte[i]
 cmp byte[i], 3 

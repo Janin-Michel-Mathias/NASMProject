@@ -112,6 +112,7 @@ loop_points_interne_1:
 
 mov ecx, minY
 mov dword[j], ecx
+movsx rsi, ecx
 
 loop_points_interne_2:
 

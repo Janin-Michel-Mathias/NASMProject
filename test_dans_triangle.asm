@@ -44,7 +44,7 @@ mov r13, pointY
 call pointDansTriangle 
 
 cmp byte[sensTriangle], 0
-je direct
+je direct_main
 
 cmp r15, 0
 jne end_bad
@@ -55,7 +55,7 @@ call printf
 
 jmp end_loop
 
-direct:
+direct_main:
 
 cmp r15, 3
 jne end_bad

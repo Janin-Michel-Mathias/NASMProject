@@ -60,6 +60,7 @@ inc byte[i]
 cmp byte[i], 3
 jl print_coords_loop
 
+mov r12, coordsX
 call triangleMinCoordOnAxis
 mov dword[minX], r9d
 call triangleMaxCoordOnAxis

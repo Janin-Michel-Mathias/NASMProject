@@ -174,6 +174,18 @@ mov dword[minY], r9d
 call triangleMaxCoordOnAxis
 mov dword[maxY], r9d
 
+mov rdi, print
+movsx rsi, dword[minX]
+movsx rdx, dword[maxX]
+mov rax, 0
+call printf
+
+mov rdi, print
+movsx rsi, dword[minY]
+movsx rdx, dword[maxY]
+mov rax, 0
+call printf
+
 mov     rdi, qword[display_name]
 mov     rsi, qword[gc]
 mov     edx, 0xFF0000
@@ -196,10 +208,10 @@ mov dword[j], ecx
 
 colorLoop2:
 
-mov rdi, print
-movsx rsi, dword[i]
-movsx rdx, dword[j]
-call printf
+; mov rdi, print
+; movsx rsi, dword[i]
+; movsx rdx, dword[j]
+; call printf
 
 
 inc dword[j]
